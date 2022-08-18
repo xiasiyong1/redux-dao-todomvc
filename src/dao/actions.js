@@ -15,11 +15,10 @@ const {
 } = createActions(
   {
     FETCH_TODO_LIST: () => {
-      return Dao.fetchTodoList();
-      // return Dao.fetchTodoList().then((todoList) => {
-      //   return todoList;
-      //   // normalize(todoList, [TodoListScheme])
-      // });
+      return Dao.fetchTodoList().then((todoList) => {
+        return todoList;
+        // normalize(todoList, [TodoListScheme])
+      });
     },
     ADD_TODO: (name) => {
       return {

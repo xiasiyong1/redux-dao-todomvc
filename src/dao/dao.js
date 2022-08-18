@@ -19,6 +19,5 @@ const mockData = [
 ];
 
 export const fetchTodoList = () => {
-  return mockData;
-  // return Promise.resolve(mockData);
+  return Promise.resolve(mockData);
 };
