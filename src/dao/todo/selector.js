@@ -29,16 +29,8 @@ const selectTodoListByStatus = createSelector(
     if (filterType === TODO_STATUS_ENUM.ALl) {
       return todoList;
     }
-    if (filterType === TODO_STATUS_ENUM.COMPLETED) {
-      return todoList.filter(
-        (todo) => todo.completeStatus === TODO_STATUS_ENUM.COMPLETED
-      );
-    }
-    if (filterType === TODO_STATUS_ENUM.ACTIVE) {
-      return todoList.filter(
-        (todo) => todo.completeStatus === TODO_STATUS_ENUM.ACTIVE
-      );
-    }
+
+    return todoList.filter((todo) => todo.completeStatus === filterType);
   }
 );
 

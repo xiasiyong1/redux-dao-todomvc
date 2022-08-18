@@ -7,7 +7,7 @@ function TodoList(props) {
   const editInputRef = useRef();
   const [editIndex, setEditIndex] = useState(-1);
   const [editContent, setEditContent] = useState("");
-  const handleUpdateStatus = (todo) => {
+  const updateStatus = (todo) => {
     updateTodo({
       ...todo,
       completeStatus:
@@ -16,7 +16,7 @@ function TodoList(props) {
           : TODO_STATUS_ENUM.COMPLETED,
     });
   };
-  const handleKeyDown = (e, todo) => {
+  const handleInputKeyDown = (e, todo) => {
     if (e.keyCode === 13) {
       updateTodo({
         ...todo,
@@ -57,19 +57,19 @@ function TodoList(props) {
                 className="toggle"
                 type="checkbox"
                 checked={todo.completeStatus === TODO_STATUS_ENUM.COMPLETED}
-                onChange={() => handleUpdateStatus(todo)}
+                onChange={() => updateStatus(todo)}
               />
               <label>{todo.name}</label>
               <button
                 className="destroy"
-                onClick={() => deleteTodo(todo)}
+                onClick={() => deleteTodo(todo.uuid)}
               ></button>
             </div>
             <input
               className="edit"
               defaultValue={editContent}
               ref={editInputRef}
-              onKeyDown={(e) => handleKeyDown(e, todo)}
+              onKeyDown={(e) => handleInputKeyDown(e, todo)}
               onBlur={(e) => handleInputBlur(e, todo)}
             />
           </li>
