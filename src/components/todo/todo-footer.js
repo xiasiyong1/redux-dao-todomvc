@@ -1,5 +1,3 @@
-import { useSelector, useDispatch } from "react-redux";
-import { TodoAction, TodoSelector } from "../../dao/todo";
 import classNames from "classnames";
 import { TODO_STATUS_ENUM } from "../../constants/todo";
 import { useEffect } from "react";
@@ -22,19 +20,13 @@ const filters = [
   },
 ];
 
-function TodoFooter() {
-  const dispatch = useDispatch();
-  const leftTodo = useSelector(TodoSelector.selectLeftTodo);
-  const filterType = useSelector(TodoSelector.selectFilterType);
-
-  const handleClearComplete = () => {
-    dispatch(TodoAction.clearCompleted());
-  };
+function TodoFooter(props) {
+  const { leftTodo, filterType, clearCompleted, changeFilterType } = props;
 
   const setFilterType = () => {
     let filterType = window.location.hash.slice(2);
     filterType = filterType === "" ? TODO_STATUS_ENUM.ALl : filterType;
-    dispatch(TodoAction.changeFilterType(filterType));
+    changeFilterType(filterType);
   };
 
   useEffect(() => {
@@ -42,6 +34,7 @@ function TodoFooter() {
     window.addEventListener("hashchange", function () {
       setFilterType();
     });
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -65,7 +58,7 @@ function TodoFooter() {
           );
         })}
       </ul>
-      <button className="clear-completed" onClick={handleClearComplete}>
+      <button className="clear-completed" onClick={clearCompleted}>
         Clear completed
       </button>
     </footer>

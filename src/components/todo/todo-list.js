@@ -1,32 +1,24 @@
-import { useSelector, useDispatch } from "react-redux";
-import { TodoAction, TodoSelector } from "../../dao/todo";
 import classNames from "classnames";
 import { useState, useRef } from "react";
 import { TODO_STATUS_ENUM } from "../../constants/todo";
 
-function TodoList() {
+function TodoList(props) {
+  const { updateTodo, deleteTodo, todoListByStatus } = props;
   const editInputRef = useRef();
   const [editIndex, setEditIndex] = useState(-1);
   const [editContent, setEditContent] = useState("");
-  const dispatch = useDispatch();
-  const todoList = useSelector(TodoSelector.selectTodoListByStatus);
-  const handleUpdateTodo = (todo) => {
-    dispatch(
-      TodoAction.updateTodo({
-        ...todo,
-        completeStatus:
-          todo.completeStatus === TODO_STATUS_ENUM.COMPLETED
-            ? TODO_STATUS_ENUM.ACTIVE
-            : TODO_STATUS_ENUM.COMPLETED,
-      })
-    );
-  };
-  const updateTask = (todo) => {
-    dispatch(TodoAction.updateTodo(todo));
+  const handleUpdateStatus = (todo) => {
+    updateTodo({
+      ...todo,
+      completeStatus:
+        todo.completeStatus === TODO_STATUS_ENUM.COMPLETED
+          ? TODO_STATUS_ENUM.ACTIVE
+          : TODO_STATUS_ENUM.COMPLETED,
+    });
   };
   const handleKeyDown = (e, todo) => {
     if (e.keyCode === 13) {
-      updateTask({
+      updateTodo({
         ...todo,
         name: e.target.value,
       });
@@ -34,21 +26,18 @@ function TodoList() {
     }
   };
   const handleInputBlur = (e, todo) => {
-    updateTask({
+    updateTodo({
       ...todo,
       name: e.target.value,
     });
     setEditIndex(-1);
-  };
-  const handleDeleteTodo = ({ uuid }) => {
-    dispatch(TodoAction.deleteTodo(uuid));
   };
   return (
     <section className="main">
       <input id="toggle-all" className="toggle-all" type="checkbox" />
       <label htmlFor="toggle-all">Mark all as complete</label>
       <ul className="todo-list">
-        {todoList.map((todo, index) => (
+        {todoListByStatus.map((todo, index) => (
           <li
             className={classNames({
               completed: todo.completeStatus === TODO_STATUS_ENUM.COMPLETED,
@@ -68,12 +57,12 @@ function TodoList() {
                 className="toggle"
                 type="checkbox"
                 checked={todo.completeStatus === TODO_STATUS_ENUM.COMPLETED}
-                onChange={() => handleUpdateTodo(todo)}
+                onChange={() => handleUpdateStatus(todo)}
               />
               <label>{todo.name}</label>
               <button
                 className="destroy"
-                onClick={() => handleDeleteTodo(todo)}
+                onClick={() => deleteTodo(todo)}
               ></button>
             </div>
             <input
