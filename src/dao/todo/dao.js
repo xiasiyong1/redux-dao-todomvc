@@ -1,5 +1,5 @@
-import { getUuid } from "../utils";
-import { TODO_STATUS_ENUM } from "../constants/todo";
+import { getUuid } from "../../utils";
+import { TODO_STATUS_ENUM } from "../../constants/todo";
 const mockData = [
   {
     uuid: getUuid(),

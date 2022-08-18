@@ -1,9 +1,9 @@
 import { createActions } from "redux-actions";
 import { normalize } from "normalizr";
 import * as Dao from "./dao";
-import TodoListScheme from "./schema";
-import { getUuid } from "../utils";
-import { TODO_STATUS_ENUM } from "../constants/todo";
+import { TodoListScheme } from "./schema";
+import { getUuid } from "../../utils";
+import { TODO_STATUS_ENUM } from "../../constants/todo";
 
 const {
   fetchTodoList,
@@ -17,7 +17,6 @@ const {
     FETCH_TODO_LIST: () => {
       return Dao.fetchTodoList().then((todoList) => {
         return todoList;
-        // normalize(todoList, [TodoListScheme])
       });
     },
     ADD_TODO: (name) => {

@@ -1,4 +1,4 @@
-import { addTodo } from "../../dao/actions";
+import { TodoAction } from "../../dao/todo";
 import { useDispatch } from "react-redux";
 
 function TodoHeader() {
@@ -6,7 +6,7 @@ function TodoHeader() {
 
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
-      dispatch(addTodo(e.target.value));
+      dispatch(TodoAction.addTodo(e.target.value));
       e.target.value = "";
       e.target.blur();
     }

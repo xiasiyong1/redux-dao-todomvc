@@ -7,7 +7,7 @@ import {
   clearCompleted,
   changeFilterType,
 } from "./actions";
-import { TODO_STATUS_ENUM } from "../constants/todo";
+import { TODO_STATUS_ENUM } from "../../constants/todo";
 
 const initState = {
   todoList: [],

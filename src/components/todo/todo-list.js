@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectTodoListByStatus } from "../../dao/selector";
-import { deleteTodo, updateTodo } from "../../dao/actions";
+import { TodoAction, TodoSelector } from "../../dao/todo";
 import classNames from "classnames";
 import { useState, useRef } from "react";
 import { TODO_STATUS_ENUM } from "../../constants/todo";
@@ -10,10 +9,10 @@ function TodoList() {
   const [editIndex, setEditIndex] = useState(-1);
   const [editContent, setEditContent] = useState("");
   const dispatch = useDispatch();
-  const todoList = useSelector(selectTodoListByStatus);
+  const todoList = useSelector(TodoSelector.selectTodoListByStatus);
   const handleUpdateTodo = (todo) => {
     dispatch(
-      updateTodo({
+      TodoAction.updateTodo({
         ...todo,
         completeStatus:
           todo.completeStatus === TODO_STATUS_ENUM.COMPLETED
@@ -23,7 +22,7 @@ function TodoList() {
     );
   };
   const updateTask = (todo) => {
-    dispatch(updateTodo(todo));
+    dispatch(TodoAction.updateTodo(todo));
   };
   const handleKeyDown = (e, todo) => {
     if (e.keyCode === 13) {
@@ -42,7 +41,7 @@ function TodoList() {
     setEditIndex(-1);
   };
   const handleDeleteTodo = ({ uuid }) => {
-    dispatch(deleteTodo(uuid));
+    dispatch(TodoAction.deleteTodo(uuid));
   };
   return (
     <section className="main">

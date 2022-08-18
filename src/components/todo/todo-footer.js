@@ -1,6 +1,5 @@
-import { selectLeftTodo, selectFilterType } from "../../dao/selector";
 import { useSelector, useDispatch } from "react-redux";
-import { clearCompleted, changeFilterType } from "../../dao/actions";
+import { TodoAction, TodoSelector } from "../../dao/todo";
 import classNames from "classnames";
 import { TODO_STATUS_ENUM } from "../../constants/todo";
 import { useEffect } from "react";
@@ -25,17 +24,17 @@ const filters = [
 
 function TodoFooter() {
   const dispatch = useDispatch();
-  const leftTodo = useSelector(selectLeftTodo);
-  const filterType = useSelector(selectFilterType);
+  const leftTodo = useSelector(TodoSelector.selectLeftTodo);
+  const filterType = useSelector(TodoSelector.selectFilterType);
 
   const handleClearComplete = () => {
-    dispatch(clearCompleted());
+    dispatch(TodoAction.clearCompleted());
   };
 
   const setFilterType = () => {
     let filterType = window.location.hash.slice(2);
     filterType = filterType === "" ? TODO_STATUS_ENUM.ALl : filterType;
-    dispatch(changeFilterType(filterType));
+    dispatch(TodoAction.changeFilterType(filterType));
   };
 
   useEffect(() => {

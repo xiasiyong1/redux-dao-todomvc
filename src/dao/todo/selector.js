@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { TODO_STATUS_ENUM } from "../constants/todo";
+import { TODO_STATUS_ENUM } from "../../constants/todo";
 
 const selectTodoList = (state) => state.todo.todoList;
 const selectFilterType = (state) => state.todo.filterType;
