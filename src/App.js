@@ -1,13 +1,11 @@
 import TodoApp from "./components/todo/todo-app";
-import { testNormlize, testNormlize2, testNormlize3 } from "./normalize/test";
-testNormlize();
-testNormlize2();
-testNormlize3();
+import OnesDesinDemo from "./components/ones-design/demo";
 
 function App() {
   return (
     <div className="App">
       <TodoApp />
+      <OnesDesinDemo />
     </div>
   );
 }
